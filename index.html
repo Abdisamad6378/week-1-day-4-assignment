@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Personal portfolio of Abdisamad Hussein, a passionate JavaScript developer building responsive and user-focused web applications.">
+    <title>Abdisamad Hussein | Portfolio</title>
+    
+    <!-- Link to premium Google Fonts (Outfit and Plus Jakarta Sans) for high-end typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Import stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- STUDENT COMMENT: This checkbox is the core of our CSS-only theme toggle. 
+         It is hidden from view, but clicking the styled label in the navbar toggles its state. 
+         In our CSS, we use the sibling selector `#theme-toggle:checked ~ .page` to change 
+         CSS variable definitions on the main container wrapper. -->
+    <input type="checkbox" id="theme-toggle" class="theme-toggle-checkbox">
+
+    <!-- Main page wrapper container that inherits the theme variables -->
+    <div class="page">
+        
+        <!-- Sticky Navbar Header -->
+        <header class="header">
+            <nav class="navbar" aria-label="Main Navigation">
+                <a href="#about" class="logo" id="nav-logo">Abdisamad<span>.dev</span></a>
+                
+                <!-- STUDENT COMMENT: This checkbox and label implement our CSS-only responsive hamburger menu. 
+                     Checking this box via the label toggles the visibility and sliding transition of the navigation list 
+                     without needing any JavaScript click event handlers. -->
+                <input type="checkbox" id="menu-toggle" class="menu-toggle-checkbox">
+                <label for="menu-toggle" class="menu-toggle-label" aria-label="Toggle mobile menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </label>
+
+                <!-- Navigation links list -->
+                <ul class="nav-links">
+                    <li><a href="#about" id="nav-link-about">About</a></li>
+                    <li><a href="#skills" id="nav-link-skills">Skills</a></li>
+                    <li><a href="#projects" id="nav-link-projects">Projects</a></li>
+                    <li><a href="#contact" id="nav-link-contact">Contact</a></li>
+                    <li class="theme-toggle-container">
+                        <!-- Theme Toggle Slider Switch -->
+                        <label for="theme-toggle" class="theme-switch" aria-label="Toggle dark/light theme">
+                            <span class="theme-switch-slider"></span>
+                        </label>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            
+            <!-- Hero / About Section -->
+            <!-- STUDENT COMMENT: The About section combines a personal hero introduction and biography. 
+                 It is styled as a responsive split grid. On desktop, the profile image sits on the left 
+                 and the elevator pitch with call-to-action buttons sits on the right. On mobile, it stacks. -->
+            <section id="about" class="about-section section">
+                <div class="container about-grid">
+                    <div class="about-image-wrapper">
+                        <!-- Profile picture with hover scale effect and border-gradient glow -->
+                        <div class="profile-image-frame">
+                            <img src="assets/images/profile.jpg" alt="Abdisamad Hussein Profile Picture" class="profile-img">
+                        </div>
+                    </div>
+                    <div class="about-content">
+                        <span class="badge">Welcome to my space</span>
+                        <h1>Hi, I'm <span class="highlight">Abdisamad Hussein</span></h1>
+                        <p class="subtitle">Passionate JavaScript Developer Building User-Focused Web Apps</p>
+                        
+                        <div class="elevator-pitch">
+                            <p>
+                                "Learning HTML & CSS now, JavaScript starting this weekend — building my way to fullstack. 
+                                Building in public. Shipping imperfect but real code. Follow along or roast me — either way, I'm growing."
+                            </p>
+                        </div>
+                        
+                        <div class="about-features">
+                            <div class="feature-tag">🚀 Always Learning</div>
+                            <div class="feature-tag">💻 Build in Public</div>
+                            <div class="feature-tag">🎨 Detail Oriented</div>
+                        </div>
+
+                        <div class="cta-buttons">
+                            <a href="#projects" class="btn btn-primary" id="cta-projects">View Projects</a>
+                            <a href="#contact" class="btn btn-secondary" id="cta-contact">Let's Connect</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Skills Section -->
+            <!-- STUDENT COMMENT: The Skills section lists 8 core skills in two columns: Technical and Soft skills. 
+                 The progress bars are made using nested HTML divs and CSS variables. The inner divs have custom 
+                 percentage widths that animate from 0% to the target percentage when the page loads, using a CSS @keyframe. -->
+            <section id="skills" class="skills-section section">
+                <div class="container">
+                    <div class="section-header">
+                        <span class="badge">Expertise</span>
+                        <h2>My Skills & Progress</h2>
+                        <div class="section-underline"></div>
+                    </div>
+
+                    <div class="skills-grid">
+                        
+                        <!-- Technical Skills Column -->
+                        <div class="skills-column">
+                            <h3>Technical Skills</h3>
+                            <div class="skills-list">
+                                
+                                <!-- Skill: HTML (90%) -->
+                                <div class="skill-item">
+                                    <div class="skill-info">
+                                        <span class="skill-name">HTML5 Semantics</span>
+                                        <span class="skill-percentage">90%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-bar-fill" style="--w: 90%;"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Skill: CSS (75%) -->
+                                <div class="skill-item">
+                                    <div class="skill-info">
+                                        <span class="skill-name">CSS3 Layouts & Gradients</span>
+                                        <span class="skill-percentage">75%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-bar-fill" style="--w: 75%;"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Skill: JavaScript (20%) -->
+                                <div class="skill-item">
+                                    <div class="skill-info">
+                                        <span class="skill-name">JavaScript (Just Starting!)</span>
+                                        <span class="skill-percentage">20%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-bar-fill" style="--w: 20%;"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Skill: Git (40%) -->
+                                <div class="skill-item">
+                                    <div class="skill-info">
+                                        <span class="skill-name">Git & Version Control</span>
+                                        <span class="skill-percentage">40%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-bar-fill" style="--w: 40%;"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- Soft Skills Column -->
+                        <div class="skills-column">
+                            <h3>Soft Skills</h3>
+                            <div class="skills-list">
+                                
+                                <!-- Skill: Communication (85%) -->
+                                <div class="skill-item">
+                                    <div class="skill-info">
+                                        <span class="skill-name">Communication & Pitching</span>
+                                        <span class="skill-percentage">85%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-bar-fill" style="--w: 85%;"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Skill: Problem Solving (70%) -->
+                                <div class="skill-item">
+                                    <div class="skill-info">
+                                        <span class="skill-name">Problem Solving</span>
+                                        <span class="skill-percentage">70%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-bar-fill" style="--w: 70%;"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Skill: Teamwork (80%) -->
+                                <div class="skill-item">
+                                    <div class="skill-info">
+                                        <span class="skill-name">Teamwork & Collaboration</span>
+                                        <span class="skill-percentage">80%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-bar-fill" style="--w: 80%;"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Skill: Time Management (65%) -->
+                                <div class="skill-item">
+                                    <div class="skill-info">
+                                        <span class="skill-name">Time Management</span>
+                                        <span class="skill-percentage">65%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-bar-fill" style="--w: 65%;"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <!-- STUDENT COMMENT: The Projects section displays three of my projects in a card layout. 
+                 On desktop it renders as 3 columns, on tablet as 2 columns, and on mobile as a single column.
+                 Each project card includes technological badges, clean descriptions, and smooth hover elevation scales. -->
+            <section id="projects" class="projects-section section">
+                <div class="container">
+                    <div class="section-header">
+                        <span class="badge">My Portfolio</span>
+                        <h2>Featured Projects</h2>
+                        <div class="section-underline"></div>
+                    </div>
+
+                    <div class="projects-grid">
+                        
+                        <!-- Project 1: Restaurant Website -->
+                        <div class="project-card">
+                            <div class="project-image-placeholder img-restaurant">
+                                <span class="project-icon">🍔</span>
+                            </div>
+                            <div class="project-card-content">
+                                <div class="project-tags">
+                                    <span class="tag">HTML5</span>
+                                    <span class="tag">CSS3</span>
+                                    <span class="tag">Flexbox</span>
+                                </div>
+                                <h3>Savory Bistro Website</h3>
+                                <p>A responsive landing page for a restaurant featuring an interactive menu, styled tables, elegant font setups, and contact forms.</p>
+                                <a href="../week-1-restaurant-website/index.html" class="project-link" id="project-1-link">View Demo &rarr;</a>
+                            </div>
+                        </div>
+
+                        <!-- Project 2: Weather Dashboard -->
+                        <div class="project-card">
+                            <div class="project-image-placeholder img-weather">
+                                <span class="project-icon">🌤️</span>
+                            </div>
+                            <div class="project-card-content">
+                                <div class="project-tags">
+                                    <span class="tag">JavaScript</span>
+                                    <span class="tag">API Integration</span>
+                                    <span class="tag">Grid</span>
+                                </div>
+                                <h3>Weather Dashboard</h3>
+                                <p>A dashboard displaying current weather and future forecasts for searched cities. Tracks search history and integrates with open weather APIs.</p>
+                                <a href="../Wheather-dashboard/index.html" class="project-link" id="project-2-link">View Demo &rarr;</a>
+                            </div>
+                        </div>
+
+                        <!-- Project 3: GitHub Profile Viewer -->
+                        <div class="project-card">
+                            <div class="project-image-placeholder img-github">
+                                <span class="project-icon">🐙</span>
+                            </div>
+                            <div class="project-card-content">
+                                <div class="project-tags">
+                                    <span class="tag">DOM Scripting</span>
+                                    <span class="tag">REST API</span>
+                                    <span class="tag">JSON</span>
+                                </div>
+                                <h3>GitHub Profile Finder</h3>
+                                <p>A search tool that queries GitHub's REST API. Renders profile photos, biographies, follower counts, and public repositories dynamically.</p>
+                                <a href="../github-profile-viewer/index.html" class="project-link" id="project-3-link">View Demo &rarr;</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact & FAQ Section -->
+            <!-- STUDENT COMMENT: This section contains a 2-column layout. The left column is a contact form with
+                 interactive input states (focus transitions, validation). The right column is a CSS-styled accordion FAQ 
+                 using HTML5 `<details>` and `<summary>` tags which expand and collapse natively without JavaScript. -->
+            <section id="contact" class="contact-section section">
+                <div class="container">
+                    <div class="section-header">
+                        <span class="badge">Get in Touch</span>
+                        <h2>Contact & FAQs</h2>
+                        <div class="section-underline"></div>
+                    </div>
+
+                    <div class="contact-grid">
+                        
+                        <!-- Contact Form Card -->
+                        <div class="contact-card card-glow">
+                            <h3>Send a Message</h3>
+                            <form class="contact-form" onsubmit="event.preventDefault(); alert('Message sent successfully! (Mock submission)');">
+                                <div class="form-group">
+                                    <label for="form-name">Name</label>
+                                    <input type="text" id="form-name" placeholder="John Doe" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="form-email">Email</label>
+                                    <input type="email" id="form-email" placeholder="john@example.com" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="form-subject">Subject</label>
+                                    <div class="select-wrapper">
+                                        <select id="form-subject">
+                                            <option value="General">General Inquiry</option>
+                                            <option value="Collab">Collaboration Project</option>
+                                            <option value="CSS">HTML/CSS Question</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Preferred Contact Mode</label>
+                                    <div class="radio-group">
+                                        <label class="radio-label">
+                                            <input type="radio" name="contact-pref" value="Email" checked>
+                                            <span>Email</span>
+                                        </label>
+                                        <label class="radio-label">
+                                            <input type="radio" name="contact-pref" value="Phone">
+                                            <span>Phone</span>
+                                        </label>
+                                        <label class="radio-label">
+                                            <input type="radio" name="contact-pref" value="Discord">
+                                            <span>Discord</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="form-message">Message</label>
+                                    <textarea id="form-message" rows="5" placeholder="Let's build something awesome..." required></textarea>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary btn-block" id="form-submit-btn">Send Message</button>
+                            </form>
+                        </div>
+
+                        <!-- FAQ Accordion -->
+                        <div class="faq-container">
+                            <h3>Frequently Asked Questions</h3>
+                            
+                            <div class="faq-accordion">
+                                
+                                <details class="faq-item" open>
+                                    <summary>What is semantic HTML? <span class="faq-caret"></span></summary>
+                                    <div class="faq-content">
+                                        <p>Semantic HTML elements are tags that clearly describe their meaning to both the browser and the developer (e.g., &lt;header&gt;, &lt;nav&gt;, &lt;article&gt;, &lt;section&gt;, and &lt;footer&gt;). They make web pages more accessible, readable, and structured for search engine optimization (SEO).</p>
+                                    </div>
+                                </details>
+
+                                <details class="faq-item">
+                                    <summary>What is the difference between section and aside? <span class="faq-caret"></span></summary>
+                                    <div class="faq-content">
+                                        <p>A &lt;section&gt; represents a thematic grouping of content, typically with a heading, and represents main document areas. An &lt;aside&gt; represents content that is tangentially related to the main content around it (like sidebars, quote callouts, or advertising blocks).</p>
+                                    </div>
+                                </details>
+
+                                <details class="faq-item">
+                                    <summary>Do I need JavaScript for details and summary tags? <span class="faq-caret"></span></summary>
+                                    <div class="faq-content">
+                                        <p>No! The &lt;details&gt; and &lt;summary&gt; tags provide native toggle interactions. When clicked, the browser toggles the 'open' attribute on the details tag, expanding or collapsing the contents automatically.</p>
+                                    </div>
+                                </details>
+
+                                <details class="faq-item">
+                                    <summary>When should I start learning JavaScript? <span class="faq-caret"></span></summary>
+                                    <div class="faq-content">
+                                        <p>It's best to start learning JavaScript after you're comfortable structuring layouts with HTML and styling them with CSS. I am starting JavaScript this weekend to begin building dynamic, fully interactive elements!</p>
+                                    </div>
+                                </details>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container footer-content">
+                <p>&copy; 2026 Abdisamad Hussein. Built with Passion + AI Toolkit.</p>
+                <div class="social-links">
+                    <a href="https://github.com" target="_blank" aria-label="GitHub">GitHub</a>
+                    <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn">LinkedIn</a>
+                    <a href="https://discord.com" target="_blank" aria-label="Discord">Discord</a>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+</body>
+</html>

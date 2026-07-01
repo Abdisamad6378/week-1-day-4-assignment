@@ -1,0 +1,1012 @@
+/* ==========================================================================
+   STUDENT PORTFOLIO DESIGN SYSTEM & STYLESHEET
+   Written with the support of an AI coding toolkit. 
+   Comments explain CSS properties, responsive grids, and selectors.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. COLOR SCHEMES & CSS CUSTOM PROPERTIES (Variables)
+   -------------------------------------------------------------------------- */
+/* STUDENT COMMENT: By default, the root element holds color styles for the Light Theme. 
+   These custom variables are shared across borders, backgrounds, and shadows, 
+   ensuring we have a single, unified source of truth for colors. */
+:root {
+    --bg-color: #f8fafc;        /* Slate 50 - Soft light grey background */
+    --text-color: #0f172a;      /* Slate 900 - Dark charcoal text for high contrast */
+    --text-muted: #475569;      /* Slate 600 - Secondary grey text for descriptions */
+    --primary-color: #6366f1;   /* Indigo 500 - Deep modern violet primary accent */
+    --primary-hover: #4f46e5;   /* Indigo 600 - Hover state color for buttons */
+    --accent-color: #06b6d4;    /* Cyan 500 - Vibrant cyan for badges & progress bar gradients */
+    --card-bg: #ffffff;         /* Pure white background for content cards */
+    --border-color: #e2e8f0;    /* Slate 200 - Subtle border line color */
+    --navbar-bg: rgba(248, 250, 252, 0.85); /* Semitransparent navbar for glassmorphism */
+    --shadow-color: rgba(15, 23, 42, 0.06); /* Soft shadow for light elements */
+    --progress-bg: #e2e8f0;     /* Slate 200 - Grey background for empty progress bars */
+}
+
+/* STUDENT COMMENT: This is our CSS-only dark theme trigger. 
+   When the hidden checkbox (#theme-toggle) is checked, this sibling selector 
+   overrides the variable definitions inside the .page container. 
+   All elements automatically shift to their dark counterparts! */
+#theme-toggle:checked ~ .page {
+    --bg-color: #0b0f19;        /* Deep dark blue-slate background */
+    --text-color: #f1f5f9;      /* Slate 100 - Off-white text */
+    --text-muted: #94a3b8;      /* Slate 400 - Light-grey muted text */
+    --primary-color: #818cf8;   /* Indigo 400 - Softer indigo for dark mode readability */
+    --primary-hover: #6366f1;   /* Indigo 500 - Hover state in dark mode */
+    --accent-color: #22d3ee;    /* Cyan 400 - Bright cyan accent */
+    --card-bg: #151c2c;         /* Card background slightly lighter than page bg */
+    --border-color: #1f293d;    /* Dark border line color */
+    --navbar-bg: rgba(11, 15, 25, 0.85); /* Semi-transparent dark navbar */
+    --shadow-color: rgba(0, 0, 0, 0.3); /* Stronger shadow for high dark mode depth */
+    --progress-bg: #1e293b;     /* Slate 800 - Dark progress background track */
+}
+
+/* --------------------------------------------------------------------------
+   2. GLOBAL LAYOUTS & RESET
+   -------------------------------------------------------------------------- */
+/* STUDENT COMMENT: Setting scroll-behavior: smooth triggers natural animated scrolling 
+   whenever the user clicks on anchor tags (#about, #skills, etc.). 
+   scroll-padding-top acts as an offset so that headers don't block titles when we land. */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px; /* Offset matching the 80px height of sticky navbar */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+.page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.section {
+    padding: 6rem 0;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+/* --------------------------------------------------------------------------
+   3. COMPONENTS & UTILITIES
+   -------------------------------------------------------------------------- */
+/* Badges & Accents */
+.badge {
+    display: inline-block;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background-color: rgba(99, 102, 241, 0.1);
+    color: var(--primary-color);
+    border-radius: 50px;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.highlight {
+    background: linear-gradient(120deg, var(--primary-color), var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Buttons */
+/* STUDENT COMMENT: Buttons are designed to be tactile and satisfy accessibility checks. 
+   The touch target height (min-height) is locked to 44px to make tapping on phones easy. */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.75rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 0.95rem;
+    cursor: pointer;
+    min-height: 44px; /* Touch target accessibility requirement */
+    min-width: 140px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--text-color);
+    border: 2px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    background-color: var(--border-color);
+    transform: translateY(-2px);
+}
+
+.btn-block {
+    width: 100%;
+}
+
+/* Section Header Styling */
+.section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.section-header h2 {
+    font-size: 2.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.section-underline {
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    margin: 0.5rem auto 0;
+    border-radius: 2px;
+}
+
+/* Card Glow Effect */
+.card-glow {
+    box-shadow: 0 10px 30px var(--shadow-color);
+    border: 1px solid var(--border-color);
+}
+
+/* --------------------------------------------------------------------------
+   4. STICKY NAVBAR & THEME TOGGLE
+   -------------------------------------------------------------------------- */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: var(--navbar-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-decoration: none;
+    color: var(--text-color);
+    letter-spacing: -0.5px;
+}
+
+.logo span {
+    color: var(--primary-color);
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2.25rem;
+    list-style: none;
+}
+
+.nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 0.5rem 0;
+    position: relative;
+    display: inline-block;
+}
+
+/* Underline slide effect on link hover */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--text-color);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* Theme Toggle Switch Graphic styling */
+.theme-toggle-checkbox {
+    display: none; /* Keep check box hidden */
+}
+
+.theme-switch {
+    display: inline-flex;
+    position: relative;
+    width: 52px;
+    height: 28px;
+    cursor: pointer;
+}
+
+.theme-switch-slider {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: var(--progress-bg);
+    border-radius: 34px;
+    border: 1px solid var(--border-color);
+}
+
+/* Sliding knob of the theme switch */
+.theme-switch-slider::before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    z-index: 2;
+}
+
+/* Sun / Moon icons generated inside the slider background */
+.theme-switch-slider::after {
+    content: '☀️ 🌙';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 7px;
+    font-size: 10px;
+    line-height: 1;
+}
+
+/* Move the circle knob to the right when the checkbox is active */
+#theme-toggle:checked ~ .page .theme-switch-slider::before {
+    transform: translateX(24px);
+    background-color: var(--accent-color);
+}
+
+/* Hamburger Trigger icon (hidden on desktop screens) */
+.menu-toggle-checkbox {
+    display: none;
+}
+
+.menu-toggle-label {
+    display: none;
+}
+
+/* --------------------------------------------------------------------------
+   5. HERO & ABOUT SECTION
+   -------------------------------------------------------------------------- */
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.about-image-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.profile-image-frame {
+    position: relative;
+    width: 320px;
+    height: 320px;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    padding: 6px;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; /* Blob frame styling */
+    box-shadow: 0 15px 35px var(--shadow-color);
+    animation: morphBlob 8s ease-in-out infinite alternate;
+}
+
+.profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit; /* inherit the organic blob shape */
+    border: 5px solid var(--card-bg);
+}
+
+.about-content h1 {
+    font-size: 3rem;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+}
+
+.about-content .subtitle {
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+}
+
+.elevator-pitch {
+    background-color: var(--card-bg);
+    border-left: 4px solid var(--primary-color);
+    padding: 1.25rem 1.5rem;
+    border-radius: 0 12px 12px 0;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 20px var(--shadow-color);
+}
+
+.elevator-pitch p {
+    font-style: italic;
+    color: var(--text-color);
+    font-size: 1.05rem;
+}
+
+.about-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+}
+
+.feature-tag {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1.25rem;
+}
+
+/* Blob morphing animation */
+@keyframes morphBlob {
+    0% {
+        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    }
+    100% {
+        border-radius: 60% 40% 30% 70% / 50% 60% 40% 50%;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   6. SKILLS SECTION WITH CSS PROGRESS BARS
+   -------------------------------------------------------------------------- */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3.5rem;
+}
+
+.skills-column h3 {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+    color: var(--text-color);
+    border-bottom: 2px solid var(--border-color);
+}
+
+.skills-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+}
+
+.skill-info {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+}
+
+.skill-percentage {
+    color: var(--primary-color);
+}
+
+/* Progress bar container background track */
+.progress-bar {
+    width: 100%;
+    height: 20px;
+    background-color: var(--progress-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+/* STUDENT COMMENT: Inner filled indicator. Width starts at 0 
+   and is inflated using the custom property '--w' via a linear keyframe animation 
+   when the webpage loads. Cubic-bezier curves give the bar a natural spring feeling. */
+.progress-bar-fill {
+    height: 100%;
+    border-radius: 10px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    width: 0; /* Fallback start */
+    animation: animateProgressBar 1.6s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+}
+
+/* Pulse glow effect when hovering on active progress bars */
+.progress-bar:hover .progress-bar-fill {
+    filter: brightness(1.1);
+    box-shadow: 0 0 10px var(--primary-color);
+}
+
+/* Keyframe to grow width from 0 to the target --w custom value */
+@keyframes animateProgressBar {
+    from {
+        width: 0%;
+    }
+    to {
+        width: var(--w);
+    }
+}
+
+/* --------------------------------------------------------------------------
+   7. PROJECTS SECTION
+   -------------------------------------------------------------------------- */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.project-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px var(--shadow-color);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.project-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(99, 102, 241, 0.12);
+    border-color: var(--primary-color);
+}
+
+/* STUDENT COMMENT: In place of broken image paths, we build modern geometric 
+   card thumbnails with gradient backgrounds and matching project emojis. */
+.project-image-placeholder {
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.img-restaurant {
+    background: linear-gradient(135deg, #f59e0b, #ef4444);
+}
+
+.img-weather {
+    background: linear-gradient(135deg, #3b82f6, #06b6d4);
+}
+
+.img-github {
+    background: linear-gradient(135deg, #6366f1, #ec4899);
+}
+
+.project-icon {
+    font-size: 3.5rem;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.25));
+    transition: transform 0.3s ease;
+}
+
+.project-card:hover .project-icon {
+    transform: scale(1.15) rotate(5deg);
+}
+
+.project-card-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.project-tags .tag {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
+.project-card-content h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+}
+
+.project-card-content p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.project-link {
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--primary-color);
+    font-size: 0.9rem;
+    display: inline-block;
+    align-self: flex-start;
+    padding: 0.25rem 0;
+}
+
+.project-link:hover {
+    color: var(--accent-color);
+}
+
+/* --------------------------------------------------------------------------
+   8. CONTACT & FAQ SECTION
+   -------------------------------------------------------------------------- */
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 4rem;
+}
+
+.contact-card {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 2.5rem;
+}
+
+.contact-card h3, .faq-container h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-family: inherit;
+    font-size: 0.95rem;
+    border-radius: 8px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border: 2px solid var(--border-color);
+    outline: none;
+    min-height: 44px; /* Tappable accessibility target check */
+}
+
+/* Select wrapper customized */
+.select-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.form-group select {
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+}
+
+.select-wrapper::after {
+    content: "▼";
+    font-size: 10px;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: var(--text-muted);
+}
+
+/* Touch Friendly Radio Buttons */
+.radio-group {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 0.25rem;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    min-height: 44px; /* Accessible target */
+}
+
+.radio-label input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
+    display: grid;
+    place-content: center;
+    background-color: var(--bg-color);
+}
+
+.radio-label input[type="radio"]::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: transform 0.15s ease-in-out;
+    background-color: var(--primary-color);
+}
+
+.radio-label input[type="radio"]:checked {
+    border-color: var(--primary-color);
+}
+
+.radio-label input[type="radio"]:checked::before {
+    transform: scale(1);
+}
+
+.radio-label span {
+    font-size: 0.95rem;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+/* FAQ Accordion Component */
+.faq-accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* details wrapper */
+.faq-item {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.faq-item[open] {
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 15px var(--shadow-color);
+}
+
+/* Accordion Summary Header */
+.faq-item summary {
+    padding: 1.25rem;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    list-style: none; /* Hide default browser caret */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 44px; /* Accessible touch target */
+}
+
+/* Chrome/Safari specific summary caret hiding */
+.faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+/* Custom CSS-styled triangle caret indicator */
+.faq-caret {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid var(--text-muted);
+    border-bottom: 2px solid var(--text-muted);
+    transform: rotate(45deg);
+    transition: transform 0.25s ease;
+    margin-right: 4px;
+}
+
+.faq-item[open] .faq-caret {
+    transform: rotate(-135deg);
+    border-color: var(--primary-color);
+}
+
+/* Accordion Inner Content */
+.faq-content {
+    padding: 0 1.25rem 1.25rem 1.25rem;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-color);
+    padding-top: 1rem;
+}
+
+/* --------------------------------------------------------------------------
+   9. FOOTER
+   -------------------------------------------------------------------------- */
+.footer {
+    margin-top: auto;
+    background-color: var(--card-bg);
+    border-top: 1px solid var(--border-color);
+    padding: 2rem 0;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.social-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.social-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.social-links a:hover {
+    color: var(--primary-color);
+}
+
+/* --------------------------------------------------------------------------
+   10. RESPONSIVE DESIGN (BREAKPOINTS)
+   -------------------------------------------------------------------------- */
+
+/* ==========================================
+   A. TABLET BREAKPOINT (768px to 1023px)
+   ========================================== */
+@media (max-width: 1023px) {
+    .section {
+        padding: 5rem 0;
+    }
+
+    .about-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .about-grid {
+        gap: 2.5rem;
+    }
+
+    .profile-image-frame {
+        width: 260px;
+        height: auto;
+    }
+
+    /* Change project grid columns from 3 to 2 */
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    /* Shrink the grid spacing for skills and contacts */
+    .skills-grid {
+        gap: 2.5rem;
+    }
+
+    .contact-grid {
+        gap: 2.5rem;
+    }
+}
+
+/* ==========================================
+   B. MOBILE BREAKPOINT (Below 768px)
+   ========================================== */
+@media (max-width: 767px) {
+    .section {
+        padding: 4rem 0;
+    }
+
+    /* Reset columns to 1-column stack layouts */
+    .about-grid,
+    .skills-grid,
+    .projects-grid,
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+
+    /* Reorder grids so images appear on top of bio details */
+    .about-grid {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .about-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .elevator-pitch {
+        text-align: left;
+        border-left: none;
+        border-top: 4px solid var(--primary-color);
+        border-radius: 0 0 12px 12px;
+    }
+
+    .about-features {
+        justify-content: center;
+    }
+
+    .cta-buttons {
+        width: 100%;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .btn {
+        width: 100%; /* Full width buttons for tap capability */
+    }
+
+    /* STUDENT COMMENT: Pure CSS Hamburger Drawer Menu. 
+       We display the menu icon button, and set the position of the list container 
+       to 'fixed'. It slides down smoothly when #menu-toggle is checked. */
+    .menu-toggle-label {
+        display: flex; /* Show Hamburger */
+        flex-direction: column;
+        justify-content: space-between;
+        width: 24px;
+        height: 18px;
+        cursor: pointer;
+        z-index: 1001;
+    }
+
+    .menu-toggle-label span {
+        display: block;
+        width: 100%;
+        height: 2px;
+        background-color: var(--text-color);
+        border-radius: 2px;
+        transform-origin: 1px 1px;
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    /* Drawer list container positioning */
+    .nav-links {
+        position: fixed;
+        top: 80px;
+        left: 0;
+        right: 0;
+        background-color: var(--bg-color);
+        border-bottom: 1px solid var(--border-color);
+        flex-direction: column;
+        align-items: stretch;
+        padding: 2.5rem;
+        gap: 1.5rem;
+        box-shadow: 0 10px 25px var(--shadow-color);
+        transform: translateY(-150%); /* Start collapsed and hidden off-screen */
+        z-index: 999;
+    }
+
+    .nav-links li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-links a {
+        display: block;
+        width: 100%;
+        font-size: 1.15rem;
+        padding: 0.75rem 0;
+        min-height: 44px; /* Touch target check */
+    }
+
+    .theme-toggle-container {
+        display: flex;
+        justify-content: center;
+        padding: 0.5rem 0;
+    }
+
+    /* Slide Down when menu toggle is checked */
+    #menu-toggle:checked ~ .nav-links {
+        transform: translateY(0);
+    }
+
+    /* Transform Hamburger lines into an "X" when checked */
+    #menu-toggle:checked ~ .menu-toggle-label span:nth-child(1) {
+        transform: rotate(45deg) translate(1px, 0px);
+    }
+
+    #menu-toggle:checked ~ .menu-toggle-label span:nth-child(2) {
+        opacity: 0;
+    }
+
+    #menu-toggle:checked ~ .menu-toggle-label span:nth-child(3) {
+        transform: rotate(-45deg) translate(0px, -1px);
+    }
+
+    /* Footer layout stacked */
+    .footer-content {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+    }
+}
