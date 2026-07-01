@@ -3,8 +3,8 @@
 Welcome to my personal developer portfolio website! This project is an enhanced, single-page, fully responsive showcase designed to highlight my skills, projects, and contact details with premium styling.
 
 ## 🚀 Live Demo & Deployment
-- **GitHub Repository**: `https://github.com/Abdisamad-Hussein/week-1-day-4-assignment` (Placeholder - replace with your actual repo)
-- **Live GitHub Pages URL**: `https://abdisamad-hussein.github.io/week-1-day-4-assignment/` (Placeholder - replace with your live URL)
+- **GitHub Repository**: [week-1-day-4-assignment](https://github.com/Abdisamad6378/week-1-day-4-assignment)
+- **Live GitHub Pages URL**: [Live Portfolio Site](https://abdisamad6378.github.io/week-1-day-4-assignment/)
 
 ---
 
